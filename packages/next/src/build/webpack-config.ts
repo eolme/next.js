@@ -1180,7 +1180,8 @@ export default async function getBaseWebpackConfig(
 
       setimmediate: 'next/dist/compiled/setimmediate',
     },
-    ...(isClient || isEdgeServer
+    ...((isClient && config.experimental.fallbackNodePolyfills !== false) ||
+    isEdgeServer
       ? {
           fallback: {
             process: require.resolve('./polyfills/process'),
